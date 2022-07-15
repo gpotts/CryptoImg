@@ -20,7 +20,7 @@
 
 #include <iostream>
 #include <math/num_th_alg.hh>
-#include <util/util.hh>
+#include <math/util.hh>
 #include <NTL/ZZ.h>
 
 using namespace std;
@@ -37,9 +37,9 @@ static void test_fact_generation(size_t m_bits)
     gmp_randinit_default(randstate);
     gmp_randseed_ui(randstate,time(NULL));
 
-    ScopedTimer *t = new ScopedTimer("Test factorization generation");
+    // ScopedTimer *t = new ScopedTimer("Test factorization generation");
     std::vector<mpz_class> fact = gen_rand_prime_with_factorization(m,&p,randstate,25);
-    delete t;
+    // delete t;
     
     cout << "Prime generated is \n" << p << endl;
     cout << "Factors:\n";
@@ -49,7 +49,8 @@ static void test_fact_generation(size_t m_bits)
     }
     
     cout << "\n" << m_bits << " bits queried\n";
-    cout << "p is " << mpz_sizeinbase(p.get_mpz_t(),2) << " bits" << endl;
+    mpz_sizeinbase(p.get_mpz_t(), 2);
+    // cout << "p is " << mpz_sizeinbase(p.get_mpz_t(),2) << " bits" << endl;
 }
 
 static void test_simple_safe_prime(size_t n_bits)
@@ -57,7 +58,7 @@ static void test_simple_safe_prime(size_t n_bits)
     gmp_randstate_t randstate;
     gmp_randinit_default(randstate);
     gmp_randseed_ui(randstate,time(NULL));
-    ScopedTimer *t;
+    // ScopedTimer *t;
 
     /*
     t = new ScopedTimer("Test simple safe prime");
@@ -70,18 +71,19 @@ static void test_simple_safe_prime(size_t n_bits)
 */
     cout << "\n\nWith NTL:" << endl;
     
-    t = new ScopedTimer("NTL safe prime");
+    // t = new ScopedTimer("NTL safe prime");
     NTL::ZZ q = NTL::GenGermainPrime_ZZ(n_bits+1);
-    delete t;
-    cout << "Prime generated is \n" << q << endl;
-    cout << "q is " << NTL::NumBits(q) << " bits" << endl;
+    NTL::NumBits(q);
+        // delete t;
+        // cout << "Prime generated is \n" << q << endl;
+        // cout << "q is " << NTL::NumBits(q) << " bits" << endl;
 
-    mpz_class r;
-    t = new ScopedTimer("Our safe prime");
+        mpz_class r;
+    // t = new ScopedTimer("Our safe prime");
     gen_germain_prime(r,n_bits,randstate);
-    delete t;
-    cout << "Prime generated is \n" << r << endl;
-    cout << "q is " <<mpz_sizeinbase(r.get_mpz_t(),2) << " bits" << endl;
+    // delete t;
+    // cout << "Prime generated is \n" << r << endl;
+    // cout << "q is " <<mpz_sizeinbase(r.get_mpz_t(),2) << " bits" << endl;
 
 }
 

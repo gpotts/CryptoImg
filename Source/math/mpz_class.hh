@@ -139,7 +139,7 @@ inline int mpz_class_invert (mpz_class &rop, const mpz_class &op1, const mpz_cla
 namespace std {
     template <>
     inline void
-    swap(mpz_class &a, mpz_class &b)
+    swap(mpz_class &a, mpz_class &b) noexcept
     {
         std::swap(*a.get_mpz_t(), *b.get_mpz_t());
     }

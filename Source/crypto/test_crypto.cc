@@ -53,16 +53,16 @@ static void test_paillier()
     //mpz_urandomm(pt1.get_mpz_t(),randstate,n.get_mpz_t());
     //mpz_urandomm(m.get_mpz_t(),randstate,n.get_mpz_t());
     mpz_class pt0 = 2, pt1 = 3, m = 5; //instead of the random values
-    cout << "pt0: "<< pt0 << endl;
-    cout << "pt1: "<< pt1 << endl;
-    cout << "m: "<< m << endl;
+    // cout << "pt0: "<< pt0 << endl;
+    // cout << "pt1: "<< pt1 << endl;
+    // cout << "m: "<< m << endl;
 
-    mpz_class ct0 = p.encrypt(pt0);         cout << "ct0: "<< ct0 << endl;
-    mpz_class ct1 = p.encrypt(pt1);         cout << "ct1: "<< ct1 << endl;
-    mpz_class sum = p.add(ct0, ct1);        cout << "sum_enc: "<< sum << endl;
-    mpz_class prod = p.constMult(m,ct0);    cout << "prod_enc: "<< prod << endl;
+    mpz_class ct0 = p.encrypt(pt0);         //cout << "ct0: "<< ct0 << endl;
+    mpz_class ct1 = p.encrypt(pt1);         //cout << "ct1: "<< ct1 << endl;
+    mpz_class sum = p.add(ct0, ct1);        //cout << "sum_enc: "<< sum << endl;
+    mpz_class prod = p.constMult(m,ct0);    //cout << "prod_enc: "<< prod << endl;
     //    mpz_class diff = p.constMult(-1, ct0);
-    mpz_class diff = p.sub(ct0, ct1);       cout << "diff_enc: "<< diff << endl;
+    mpz_class diff = p.sub(ct0, ct1);       //cout << "diff_enc: "<< diff << endl;
 
     assert(pp.decrypt(ct0) == pt0);
     assert(pp.decrypt(ct1) == pt1);
@@ -80,10 +80,10 @@ static void test_paillier()
     //int rows = sizeof A / sizeof A[0];
     //int cols = sizeof A[0] / sizeof(mpz_class);
     //cout << rows << " " << cols <<endl;
-    mpz_class A_enc[3][3];
-    p.encryptMatrix(A, A_enc);
-    mpz_class A_dec[3][3];
-    pp.decryptMatrix(A_enc, A_dec);
+    // mpz_class A_enc[3][3];
+    // p.encryptMatrix(A, A_enc);
+    // mpz_class A_dec[3][3];
+    // pp.decryptMatrix(A_enc, A_dec);
     cout << "Test Matrix Paillier passed" << endl;
 }
 
@@ -131,7 +131,7 @@ static void paillier_perf(unsigned int k, unsigned int a_bits, size_t n_iteratio
 {
     cout << "Test Paillier performances ..." << endl;
 
-    cout << "k = " << k << "\na_bits = " << a_bits << "\n" << n_iteration << " iterations" << endl;
+    // cout << "k = " << k << "\na_bits = " << a_bits << "\n" << n_iteration << " iterations" << endl;
 
     gmp_randstate_t randstate;
     gmp_randinit_default(randstate);
@@ -213,7 +213,7 @@ static void paillier_fast_perf(unsigned int k, size_t n_iteration)
 {
     cout << "Test Paillier Fast performances ..." << endl;
 
-    cout << "k = " << k << "\n" << n_iteration << " iterations" << endl;
+    // cout << "k = " << k << "\n" << n_iteration << " iterations" << endl;
 
     gmp_randstate_t randstate;
     gmp_randinit_default(randstate);
@@ -244,7 +244,7 @@ static void paillier_fast_perf(unsigned int k, size_t n_iteration)
     }
     clock_gettime(CLOCK_THREAD_CPUTIME_ID,&t1);
     t = (((uint64_t)t1.tv_sec) - ((uint64_t)t0.tv_sec) )* 1000000000 + (t1.tv_nsec - t0.tv_nsec);
-    cerr << "private encryption with generator precomputations: "<<  ((double)t/1000000)/n_iteration <<"ms per plaintext" << endl;
+    // cerr << "private encryption with generator precomputations: "<<  ((double)t/1000000)/n_iteration <<"ms per plaintext" << endl;
 
     clock_gettime(CLOCK_THREAD_CPUTIME_ID,&t0);
     for (size_t i = 0; i < n_iteration; i++) {
@@ -252,7 +252,7 @@ static void paillier_fast_perf(unsigned int k, size_t n_iteration)
     }
     clock_gettime(CLOCK_THREAD_CPUTIME_ID,&t1);
     t = (((uint64_t)t1.tv_sec) - ((uint64_t)t0.tv_sec) )* 1000000000 + (t1.tv_nsec - t0.tv_nsec);
-    cerr << "decryption: "<<  ((double)t/1000000)/n_iteration <<"ms per cyphertext" << endl;
+    // cerr << "decryption: "<<  ((double)t/1000000)/n_iteration <<"ms per cyphertext" << endl;
 
 }
 
